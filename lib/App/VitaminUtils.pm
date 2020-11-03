@@ -49,6 +49,11 @@ sub convert_vitamin_a_unit {
 
     Physics::Unit::InitUnit(
         ['mcg'], '0.001 mg',
+        ['mcg-all-trans-retinol'], '1 mcg',
+        ['mcg-dietary-all-trans-beta-carotene'],            '0.083333333 mcg', # 1/12
+        ['mcg-alpha-carotene'],                             '0.041666667 mcg', # 1/24
+        ['mcg-beta-cryptoxanthin'],                         '0.041666667 mcg', # 1/24
+        ['mcg-all-trans-beta-carotene-as-food-supplement'], '0.5 mcg',
         ['IU', 'iu'], '0.3 microgram',
         ['IU-retinol', 'iu-retinol'], '0.3 microgram',
         ['IU-beta-carotene', 'iu-beta-carotene'], '0.6 microgram',
@@ -63,7 +68,16 @@ sub convert_vitamin_a_unit {
         return [200, "OK", $new_amount];
     } else {
         my @rows;
-        for my $u ('mg', 'IU-retinol', 'IU-beta-carotene') {
+        for my $u (
+            'mg', 'mcg',
+            'mcg-all-trans-retinol',
+            'mcg-dietary-all-trans-beta-carotene',
+            'mcg-alpha-carotene',
+            'mcg-beta-cryptoxanthin',
+            'mcg-all-trans-beta-carotene-as-food-supplement',
+            'IU',
+            'IU-retinol',
+            'IU-beta-carotene') {
             push @rows, {
                 unit => $u,
                 amount => $quantity->convert($u),
@@ -140,7 +154,13 @@ sub convert_vitamin_e_unit {
     require Physics::Unit;
 
     Physics::Unit::InitUnit(
-        #['mcg'], '0.001 mg',
+        ['mcg'], '0.001 mg',
+        ['mg-alpha-tocopherol-equivalent', 'mcg-alpha-TE'], '1 mg',
+        ['mg-rrr-alpha-tocopherol'], '1 mg',
+        ['mg-rrr-alpha-tocopherol'], '1 mg',
+        ['mg-beta-tocopherol'], '0.5 mg',
+        ['mg-gamma-tocopherol'], '0.1 mg',
+        ['mg-alpha-tocotrienol'], '0.30 mg',
         ['IU', 'iu'], '0.67 mg',
         ['IU-natural', 'iu-natural'], '0.67 mg',
         ['IU-synthetic', 'iu-synthetic'], '0.9 mg',
@@ -155,7 +175,18 @@ sub convert_vitamin_e_unit {
         return [200, "OK", $new_amount];
     } else {
         my @rows;
-        for my $u ('mg', 'IU-natural', 'IU-synthetic') {
+        for my $u (
+            'mg',
+            'mcg',
+            'mg-alpha-tocopherol-equivalent',
+            'mg-rrr-alpha-tocopherol',
+            'mg-rrr-alpha-tocopherol',
+            'mg-beta-tocopherol',
+            'mg-gamma-tocopherol',
+            'mg-alpha-tocotrienol',
+            'IU',
+            'IU-natural',
+            'IU-synthetic') {
             push @rows, {
                 unit => $u,
                 amount => $quantity->convert($u),
