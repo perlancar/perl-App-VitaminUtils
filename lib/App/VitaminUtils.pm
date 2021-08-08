@@ -412,6 +412,8 @@ This distributions provides the following command-line utilities:
 
 =head1 SEE ALSO
 
+L<App::MineralUtils>
+
 L<Physics::Unit>
 
 Online vitamin converters:
