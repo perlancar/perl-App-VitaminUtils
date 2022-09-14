@@ -4,6 +4,8 @@ use 5.010001;
 use strict;
 use warnings;
 
+use Capture::Tiny 'capture_stderr';
+
 # AUTHORITY
 # DATE
 # DIST
@@ -301,11 +303,13 @@ _
 sub convert_vitamin_d_unit {
     require Physics::Unit;
 
-    Physics::Unit::InitUnit(
-        ['mcg'], '0.001 mg',
-        ['ng'],  '0.000001 mg',
-        ['IU', 'iu'], '0.025 microgram',
-    );
+    capture_stderr {
+        Physics::Unit::InitUnit(
+            ['g'], 'gram', # emits warning 'already defined' warning, but '3g' won't work if we don't add this
+            ['mcg'], '0.001 mg',
+            ['IU', 'iu'], '0.025 microgram',
+        );
+    }; # silence warning
 
     my %args = @_;
     my $quantity = Physics::Unit->new($args{quantity});
