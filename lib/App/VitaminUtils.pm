@@ -1,13 +1,13 @@
 package App::VitaminUtils;
 
+use 5.010001;
+use strict;
+use warnings;
+
 # AUTHORITY
 # DATE
 # DIST
 # VERSION
-
-use 5.010001;
-use strict;
-use warnings;
 
 our %SPEC;
 
@@ -303,6 +303,7 @@ sub convert_vitamin_d_unit {
 
     Physics::Unit::InitUnit(
         ['mcg'], '0.001 mg',
+        ['ng'],  '0.000001 mg',
         ['IU', 'iu'], '0.025 microgram',
     );
 
