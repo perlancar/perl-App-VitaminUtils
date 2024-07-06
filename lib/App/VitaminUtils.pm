@@ -13,13 +13,25 @@ use Capture::Tiny 'capture_stderr';
 
 our %SPEC;
 
-our %args_common = (
+our %argspec_quantity_default1mg = (
     quantity => {
         # schema => 'physical::mass*', # XXX Perinci::Sub::GetArgs::Argv is not smart enough to coerce from string
         schema => 'str*',
-        req => 1,
+        default => '1 mg',
         pos => 0,
     },
+);
+
+our %argspec_quantity_default1mcg = (
+    quantity => {
+        # schema => 'physical::mass*', # XXX Perinci::Sub::GetArgs::Argv is not smart enough to coerce from string
+        schema => 'str*',
+        default => '1 mcg',
+        pos => 0,
+    },
+);
+
+our %argspecs_common = (
     to_unit => {
         # schema => 'physical::unit', # IU hasn't been added
         schema => 'str*',
@@ -30,16 +42,17 @@ our %args_common = (
 $SPEC{convert_vitamin_a_unit} = {
     v => 1.1,
     summary => 'Convert a vitamin A quantity from one unit to another',
-    description => <<'_',
+    description => <<'MARKDOWN',
 
 If target unit is not specified, will show all known conversions.
 
-_
+MARKDOWN
     args => {
-        %args_common,
+        %argspecs_common,
+        %argspec_quantity_default1mcg,
     },
     examples => [
-        {args=>{quantity=>'mcg'}, summary=>'Show all possible conversions'},
+        {args=>{}, summary=>'Show all possible conversions'},
         {args=>{quantity=>'1500 mcg', to_unit=>'IU'}, summary=>'Convert from mcg to IU (retinol)'},
         {args=>{quantity=>'1500 mcg', to_unit=>'IU-retinol'}, summary=>'Convert from mcg to IU (retinol)'},
         {args=>{quantity=>'1500 mcg', to_unit=>'IU-beta-carotene'}, summary=>'Convert from mcg to IU (beta-carotene)'},
@@ -98,16 +111,17 @@ sub convert_vitamin_a_unit {
 $SPEC{convert_vitamin_b5_unit} = {
     v => 1.1,
     summary => 'Convert a vitamin B5 (pantothenic acid) quantity from one unit to another',
-    description => <<'_',
+    description => <<'MARKDOWN',
 
 If target unit is not specified, will show all known conversions.
 
-_
+MARKDOWN
     args => {
-        %args_common,
+        %argspecs_common,
+        %argspec_quantity_default1mg,
     },
     examples => [
-        {args=>{quantity=>'mg'}, summary=>'Show all possible conversions'},
+        {args=>{}, summary=>'Show all possible conversions'},
     ],
 };
 sub convert_vitamin_b5_unit {
@@ -144,16 +158,17 @@ sub convert_vitamin_b5_unit {
 $SPEC{convert_vitamin_b6_unit} = {
     v => 1.1,
     summary => 'Convert a vitamin B6 (pyridoxine) quantity from one unit to another',
-    description => <<'_',
+    description => <<'MARKDOWN',
 
 If target unit is not specified, will show all known conversions.
 
-_
+MARKDOWN
     args => {
-        %args_common,
+        %argspecs_common,
+        %argspec_quantity_default1mg,
     },
     examples => [
-        {args=>{quantity=>'mg'}, summary=>'Show all possible conversions'},
+        {args=>{}, summary=>'Show all possible conversions'},
     ],
 };
 sub convert_vitamin_b6_unit {
@@ -190,16 +205,17 @@ sub convert_vitamin_b6_unit {
 $SPEC{convert_vitamin_b12_unit} = {
     v => 1.1,
     summary => 'Convert a vitamin B12 (cobalamin) quantity from one unit to another',
-    description => <<'_',
+    description => <<'MARKDOWN',
 
 If target unit is not specified, will show all known conversions.
 
-_
+MARKDOWN
     args => {
-        %args_common,
+        %argspecs_common,
+        %argspec_quantity_default1mcg,
     },
     examples => [
-        {args=>{quantity=>'mcg'}, summary=>'Show all possible conversions'},
+        {args=>{}, summary=>'Show all possible conversions'},
     ],
 };
 sub convert_vitamin_b12_unit {
@@ -238,16 +254,17 @@ sub convert_vitamin_b12_unit {
 $SPEC{convert_choline_unit} = {
     v => 1.1,
     summary => 'Convert a choline quantity from one unit to another',
-    description => <<'_',
+    description => <<'MARKDOWN',
 
 If target unit is not specified, will show all known conversions.
 
-_
+MARKDOWN
     args => {
-        %args_common,
+        %argspecs_common,
+        %argspec_quantity_default1mcg,
     },
     examples => [
-        {args=>{quantity=>'mcg'}, summary=>'Show all possible conversions'},
+        {args=>{}, summary=>'Show all possible conversions'},
     ],
 };
 sub convert_choline_unit {
@@ -286,16 +303,17 @@ sub convert_choline_unit {
 $SPEC{convert_vitamin_d_unit} = {
     v => 1.1,
     summary => 'Convert a vitamin D quantity from one unit to another',
-    description => <<'_',
+    description => <<'MARKDOWN',
 
 If target unit is not specified, will show all known conversions.
 
-_
+MARKDOWN
     args => {
-        %args_common,
+        %argspecs_common,
+        %argspec_quantity_default1mcg,
     },
     examples => [
-        {args=>{quantity=>'mcg'}, summary=>'Show all possible conversions'},
+        {args=>{}, summary=>'Show all possible conversions'},
         {args=>{quantity=>'2 mcg', to_unit=>'IU'}, summary=>'Convert from mcg to IU'},
         {args=>{quantity=>'5000 IU', to_unit=>'mg'}, summary=>'Convert from IU to mg'},
     ],
@@ -333,16 +351,17 @@ sub convert_vitamin_d_unit {
 $SPEC{convert_vitamin_e_unit} = {
     v => 1.1,
     summary => 'Convert a vitamin E quantity from one unit to another',
-    description => <<'_',
+    description => <<'MARKDOWN',
 
 If target unit is not specified, will show all known conversions.
 
-_
+MARKDOWN
     args => {
-        %args_common,
+        %argspecs_common,
+        %argspec_quantity_default1mg,
     },
     examples => [
-        {args=>{quantity=>'mg'}, summary=>'Show all possible conversions'},
+        {args=>{}, summary=>'Show all possible conversions'},
         {args=>{quantity=>'67 mg', to_unit=>'IU'}, summary=>'Convert from mg to IU (d-alpha-tocopherol/natural vitamin E)'},
         {args=>{quantity=>'67 mg', to_unit=>'IU-natural'}, summary=>'Convert from mg to IU (d-alpha-tocopherol/natural vitamin E)'},
         {args=>{quantity=>'90 mg', to_unit=>'IU-synthetic'}, summary=>'Convert from mg to IU (dl-alpha-tocopherol/synthetic vitamin E)'},
